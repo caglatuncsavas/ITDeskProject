@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\New folder\\ITDeskServer\\ITDeskServer.csproj": {}
+    "C:\\ITDeskProject\\ITDeskServer\\ITDeskServer.csproj": {}
   },
   "projects": {
-    "C:\\New folder\\ITDeskServer\\ITDeskServer.csproj": {
+    "C:\\ITDeskProject\\ITDeskServer\\ITDeskServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\New folder\\ITDeskServer\\ITDeskServer.csproj",
+        "projectUniqueName": "C:\\ITDeskProject\\ITDeskServer\\ITDeskServer.csproj",
         "projectName": "ITDeskServer",
-        "projectPath": "C:\\New folder\\ITDeskServer\\ITDeskServer.csproj",
+        "projectPath": "C:\\ITDeskProject\\ITDeskServer\\ITDeskServer.csproj",
         "packagesPath": "C:\\Users\\ercan\\.nuget\\packages\\",
-        "outputPath": "C:\\New folder\\ITDeskServer\\obj\\",
+        "outputPath": "C:\\ITDeskProject\\ITDeskServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ercan\\AppData\\Roaming\\NuGet\\NuGet.Config",

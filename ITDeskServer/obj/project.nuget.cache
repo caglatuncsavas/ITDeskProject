@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QLC9Hcc3ViGDRNO/YCPhKHAjppiq587h/kOxNS5rBdJTsF+OtDvMz8zlYmSLu///ip+7MDcq/Gxe9lS2rDKDIA==",
+  "dgSpecHash": "cAqa7klzb4TURgavvU2D2BgGuQc2UX/U4e5/7ysWqAXh9FjY7zviwhNlPYbp/0+ij/hA0jSsmYYUFWrn7CC6qg==",
   "success": true,
-  "projectFilePath": "C:\\New folder\\ITDeskServer\\ITDeskServer.csproj",
+  "projectFilePath": "C:\\ITDeskProject\\ITDeskServer\\ITDeskServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ercan\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\ercan\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
