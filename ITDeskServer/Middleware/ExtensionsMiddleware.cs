@@ -27,8 +27,9 @@ public static class ExtensionsMiddleware
                 {
                     Email = "test@test.com",
                     UserName = "test",
-                    Name = "Cagla",
-                    LastName = "Tunc Savas"
+                    FirstName = "Cagla",
+                    LastName = "Tunc Savas",
+                    EmailConfirmed = true,
                 }, "Password12*").Wait();
             }
         }

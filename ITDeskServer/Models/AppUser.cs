@@ -1,12 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ITDeskServer.Models;
 
 public class AppUser: IdentityUser<Guid>
 {
-    public string Name { get; set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public int WrongTryCount { get; set; } = 0;
-    public DateTime LockDate { get; set; } = DateTime.Now;
-    public DateTime LastWrongTry { get; set; } = DateTime.Now;
+
+    [NotMapped]
+    public override bool PhoneNumberConfirmed { get; set; }
+
+    public string GetName()
+    {
+        return string.Join(" ", FirstName, LastName);
+    }
 }

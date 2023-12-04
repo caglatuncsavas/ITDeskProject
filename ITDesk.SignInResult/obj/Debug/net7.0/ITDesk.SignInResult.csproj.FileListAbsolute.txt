@@ -1,0 +1,13 @@
+C:\ITDeskProject\ITDesk.SignInResult\bin\Debug\net7.0\ITDesk.SignInResult.deps.json
+C:\ITDeskProject\ITDesk.SignInResult\bin\Debug\net7.0\ITDesk.SignInResult.dll
+C:\ITDeskProject\ITDesk.SignInResult\bin\Debug\net7.0\ITDesk.SignInResult.pdb
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ITDesk.SignInResult.csproj.AssemblyReference.cache
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ITDesk.SignInResult.GeneratedMSBuildEditorConfig.editorconfig
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ITDesk.SignInResult.AssemblyInfoInputs.cache
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ITDesk.SignInResult.AssemblyInfo.cs
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ITDesk.SignInResult.csproj.CoreCompileInputs.cache
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ITDesk.SignInResult.sourcelink.json
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ITDesk.SignInResult.dll
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\refint\ITDesk.SignInResult.dll
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ITDesk.SignInResult.pdb
+C:\ITDeskProject\ITDesk.SignInResult\obj\Debug\net7.0\ref\ITDesk.SignInResult.dll

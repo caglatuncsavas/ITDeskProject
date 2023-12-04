@@ -20,3 +20,5 @@ public sealed class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
         builder.Ignore<IdentityUserRole<Guid>>();
     }
 }
+
+

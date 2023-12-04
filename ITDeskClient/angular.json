@@ -90,10 +90,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ITDeskClient:build:production"
+              "buildTarget": "ITDeskClient:build:production"
             },
             "development": {
-              "browserTarget": "ITDeskClient:build:development"
+              "buildTarget": "ITDeskClient:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -101,7 +101,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ITDeskClient:build"
+            "buildTarget": "ITDeskClient:build"
           }
         },
         "test": {
