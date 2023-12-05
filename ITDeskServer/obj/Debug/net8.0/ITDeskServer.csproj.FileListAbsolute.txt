@@ -140,3 +140,5 @@ C:\ITDeskProject\ITDeskServer\obj\Debug\net8.0\ITDeskServer.pdb
 C:\ITDeskProject\ITDeskServer\obj\Debug\net8.0\ITDeskServer.genruntimeconfig.cache
 C:\ITDeskProject\ITDeskServer\obj\Debug\net8.0\ref\ITDeskServer.dll
 C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\JWT.dll
+C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Newtonsoft.Json.dll

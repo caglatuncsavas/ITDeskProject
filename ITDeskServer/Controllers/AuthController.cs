@@ -2,6 +2,7 @@
 using ITDesk.SignInResultNameSpace;
 using ITDeskServer.DTOs;
 using ITDeskServer.Models;
+using ITDeskServer.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,8 @@ namespace ITDeskServer.Controllers;
 [ApiController]
 public class AuthController(
     UserManager<AppUser> userManager, 
-    SignInManager<AppUser> signInManager) : ControllerBase
+    SignInManager<AppUser> signInManager,
+    JwtService jwtService) : ControllerBase
 {
    
     [HttpPost]
@@ -47,7 +49,10 @@ public class AuthController(
         {
             return BadRequest(new { Message = "Şifreniz yanlış!" });
         }
-        return Ok();
+
+        string token = jwtService.CreateToken(appUser, request.RememberMe);
+
+        return Ok(new {AccessToken= token });
     }
 
     

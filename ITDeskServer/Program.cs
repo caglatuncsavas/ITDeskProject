@@ -5,9 +5,26 @@ using Microsoft.EntityFrameworkCore;
 using ITDeskServer.Middleware;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
+using ITDeskServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(configure =>
+{
+    configure.AddDefaultPolicy(policy =>
+    {
+        policy
+        .AllowAnyHeader() //contentType => application/json application/est text/xml text/html mime type denir.
+        .AllowAnyOrigin() //www.google.com www.facebook.com gibi sitelerden gelen isteklere izin veriyor.
+        .AllowAnyMethod();//Get Post Put Delete gibi isteklere izin veriyor.
+    });
+});
+
+#region Dependency Injection
+builder.Services.AddScoped<JwtService>();
+#endregion
 
 #region Authentication
 builder.Services.AddAuthentication().AddJwtBearer(options =>
@@ -20,7 +37,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
         ValidateLifetime = true, // Tokenin yaþam süresini kontrol etmek istiyor musunuz?
         ValidIssuer = "Cagla Tunc Savas", //Tokeni gönderen kiþi bilgisi
         ValidAudience = "IT Desk Angular App", //Tokeni kullanacak site ya da kiþi bilgisi
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my secret key my secret key my secret key 1234..."))//Tokenin doðruluðunu doðrulayacak anahtar
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my secret key my secret key my secret key 1234...my secret key my secret key my secret key 1234..."))//Tokenin doðruluðunu doðrulayacak anahtar
     };
 });
 #endregion
@@ -47,7 +64,32 @@ builder.Services.AddIdentity<AppUser, AppRole>(opt =>
 #region Presentation
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(setup =>
+{
+    var jwtSecuritySheme = new OpenApiSecurityScheme
+    {
+        BearerFormat = "JWT",
+        Name = "JWT Authentication",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+        Description = "Put **_ONLY_** yourt JWT Bearer token on textbox below!",
+
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    setup.AddSecurityDefinition(jwtSecuritySheme.Reference.Id, jwtSecuritySheme);
+
+    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecuritySheme, Array.Empty<string>() }
+                });
+});
+
 #endregion
 
 
@@ -59,7 +101,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

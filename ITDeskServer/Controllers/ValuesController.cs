@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ITDeskServer.Controllers;
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes ="Bearer")] // attribute olarak ekledik. Bu attribute ile bu controller'a gelen tüm isteklerde kullanıcı girişi olup olmadığı kontrol edilecek.
+[Authorize(AuthenticationSchemes ="Bearer")] // attribute olarak ekledik. Bu attribute arka planda token'ın doğrulunu kontrol eediyor.Eğer token doğruysa buna izin veriyor.
 public class ValuesController : ControllerBase
 {
     [HttpGet]
