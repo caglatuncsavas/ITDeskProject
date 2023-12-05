@@ -5,6 +5,7 @@ import { MenuItem } from 'primeng/api';
 import { Router, RouterOutlet } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -17,6 +18,7 @@ export class LayoutComponent implements OnInit {
   items: MenuItem[] | undefined;
 
   constructor(
+    public auth: AuthService,
     private router: Router
   ) { }
 
