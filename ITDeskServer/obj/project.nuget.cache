@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "1tMA6sXy79VlREv22M7OWzHcTTl+rk/zGuWTVLuoudz2FvPDEPd9Eon/1+W8VMGgj5203pvhZJKpv8g8tzMg6w==",
+  "dgSpecHash": "wksLe/3DnDZFKu7ECAXRVal230JoowHSNPNsBP32RR+RQQRyq5xUxlxCNbznJbHeYJ1KJXnl6KcQL0PUjFWKbg==",
   "success": true,
   "projectFilePath": "C:\\ITDeskProject\\ITDeskServer\\ITDeskServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ercan\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\ercan\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\ercan\\.nuget\\packages\\fluentvalidation\\11.8.1\\fluentvalidation.11.8.1.nupkg.sha512",
     "C:\\Users\\ercan\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\ercan\\.nuget\\packages\\jwt\\10.1.1\\jwt.10.1.1.nupkg.sha512",
     "C:\\Users\\ercan\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

@@ -1,8 +1,10 @@
 ﻿using Azure.Core;
+using FluentValidation.Results;
 using ITDesk.SignInResultNameSpace;
 using ITDeskServer.DTOs;
 using ITDeskServer.Models;
 using ITDeskServer.Services;
+using ITDeskServer.Validator;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +23,15 @@ public class AuthController(
     [HttpPost]
     public async Task<IActionResult> Login(LoginDto request, CancellationToken cancellationToken)
     {
-        AppUser? appUser = await userManager.FindByNameAsync(request.UserNameOrEmail); //UserName'in DB de olup, olmadığını sorgular. Geriye AppUser döner.
+        LoginValidator validator = new();
+        ValidationResult validationResult = validator.Validate(request);
+      
+        if (!validationResult.IsValid)
+        {
+            return StatusCode(422,validationResult.Errors.Select(s=> s.ErrorMessage));
+        }
+
+             AppUser? appUser = await userManager.FindByNameAsync(request.UserNameOrEmail); //UserName'in DB de olup, olmadığını sorgular. Geriye AppUser döner.
         if (appUser is null)
         {
             appUser = await userManager.FindByEmailAsync(request.UserNameOrEmail);

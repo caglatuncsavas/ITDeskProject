@@ -12,37 +12,35 @@ export class AuthService {
   constructor(private router: Router) { }
 
   checkAuthentication() {
-    //if (localStorage.getItem("response")) return true;
     const responseString = localStorage.getItem("response");
-
-    if (responseString != null) {
-      const responseJson = JSON.parse(responseString);
-
-      if (responseJson != null) {
-        const token = responseJson?.accessToken;
-      
-        if (token != null) {
-          const decode:any= jwtDecode(token);
-          this.token.email=decode?.Email;
-          this.token.name=decode?.Name;
-          this.token.userName=decode?.UserName;
-          this.token.userId=decode?.UserId;
-          this.token.exp=decode?.Exp;
-
-
-          return true;
-
-        } else {
-          this.router.navigateByUrl("/login");
-          return false;
-        }
-      } else {
-        this.router.navigateByUrl("/login");
-        return false;
-      }
+    if (!responseString) {
+      return this.redirectToLogin();
     }
-
+  
+    const responseJson = JSON.parse(responseString);
+    const token = responseJson?.accessToken;
+    if (!token) {
+      return this.redirectToLogin();
+    }
+  
+    const decode:any = jwtDecode(token);
+    this.token.email = decode?.Email;
+    this.token.name = decode?.Name;
+    this.token.userName = decode?.UserName;
+    this.token.userId = decode?.UserId;
+    this.token.exp = decode?.exp;
+  
+    const now = new Date().getTime() / 1000;
+    if (this.token.exp < now) {
+      return this.redirectToLogin();
+    }
+  
+    return true;
+  }
+  
+  redirectToLogin() {
     this.router.navigateByUrl("/login");
     return false;
   }
 }
+
