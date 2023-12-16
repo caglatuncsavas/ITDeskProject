@@ -10,7 +10,10 @@ public sealed class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     public AppDbContext(DbContextOptions options) : base(options)
     {
     }
-
+    
+    public DbSet<Ticket> Tickets { get; set; }
+    public DbSet<TicketFile> TicketFiles { get; set; }
+    public DbSet<TicketDetail> TicketDetails { get; set; }
     override protected void OnModelCreating(ModelBuilder builder)
     {
         builder.Ignore<IdentityRoleClaim<Guid>>();

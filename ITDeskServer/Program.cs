@@ -8,6 +8,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using ITDeskServer.Services;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.OData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +25,7 @@ builder.Services.AddCors(configure =>
 });
 
 #region Dependency Injection
-builder.Services.AddScoped<JwtService>();
+builder.Services.TryAddScoped<JwtService>();
 #endregion
 
 #region Authentication
@@ -62,7 +64,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(opt =>
 #endregion
 
 #region Presentation
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddOData(options=>options.EnableQueryFeatures());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setup =>
 {

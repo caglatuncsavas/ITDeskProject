@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ITDeskServer.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITDeskServer.Controllers;
-[Route("api/[controller]")]
-[ApiController]
-[Authorize(AuthenticationSchemes ="Bearer")] // attribute olarak ekledik. Bu attribute arka planda token'ın doğrulunu kontrol eediyor.Eğer token doğruysa buna izin veriyor.
-public class ValuesController : ControllerBase
+
+public class ValuesController : ApiController
 {
     [HttpGet]
     public IActionResult Get()

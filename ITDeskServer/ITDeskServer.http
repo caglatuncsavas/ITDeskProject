@@ -1,0 +1,6 @@
+@ITDeskServer_HostAddress = http://localhost:5170
+
+GET  {{ITDeskServer_HostAddress}}/api/Tickets/GetAll
+Accept: application/json
+
+###

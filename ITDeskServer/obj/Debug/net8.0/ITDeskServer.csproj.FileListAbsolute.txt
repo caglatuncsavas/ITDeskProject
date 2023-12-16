@@ -143,3 +143,8 @@ C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Microsoft.AspNetCore.Authenticati
 C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\JWT.dll
 C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\FluentValidation.dll
+C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Microsoft.AspNetCore.OData.dll
+C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Microsoft.OData.Core.dll
+C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Microsoft.OData.Edm.dll
+C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Microsoft.OData.ModelBuilder.dll
+C:\ITDeskProject\ITDeskServer\bin\Debug\net8.0\Microsoft.Spatial.dll

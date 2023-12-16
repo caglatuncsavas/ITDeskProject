@@ -30,7 +30,13 @@
             <label for="ny">Beni Hatırla</label>
         </div>
         <ng-template pTemplate="footer">
-            <p-button (onClick)="signIn()"  [style]="{width:'100%'}" label="Giriş Yap" icon="pi pi-user"></p-button>            
+            <p-button (onClick)="signIn()"  [style]="{width:'100%'}" label="Giriş Yap" icon="pi pi-user"></p-button>
+            <div class="mt-2 text-center">
+               - Sosyal medya hesabınızla giriş yapın -
+            </div>
+            <div class="mt-2 flex justify-content-center">
+                <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>        
+            </div>    
         </ng-template>
     </p-card>
 </div>

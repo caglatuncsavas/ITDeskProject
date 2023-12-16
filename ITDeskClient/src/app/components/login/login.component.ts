@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -12,24 +12,49 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginModel } from 'src/app/models/login.model';
 import { CheckboxModule } from 'primeng/checkbox';
+import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
+import { ErrorService } from 'src/app/services/error.service';
+import { HttpService } from 'src/app/services/http.service';
 
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, InputTextModule, PasswordModule, FormsModule, DividerModule, ToastModule, CheckboxModule],
-  providers: [MessageService],
+  imports: [
+    CommonModule,
+    CardModule,
+    ButtonModule,
+    InputTextModule,
+    PasswordModule,
+    FormsModule,
+    DividerModule,
+    ToastModule,
+    CheckboxModule,
+    GoogleSigninButtonModule
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export default class LoginComponent {
+export default class LoginComponent implements OnInit {
   request: LoginModel = new LoginModel();
 
   constructor(
     private message: MessageService,
-    private http: HttpClient,
-    private router: Router) { }
+    private http: HttpService,
+    private router: Router,
+    private error: ErrorService,
+    private auth: SocialAuthService) { }
+    
+  ngOnInit(): void {
+    this.auth.authState.subscribe(res => {
+      this.http.post("Auth/GoogleLogin", res, (data)=>{
+        localStorage.setItem("response", JSON.stringify(data));
+        this.router.navigateByUrl("/");
+      })
+      console.log(res);
+    })
+  }
 
   signIn() {
     if (this.request.userNameOrEmail.length < 3) {
@@ -37,30 +62,13 @@ export default class LoginComponent {
       return;
     }
     if (this.request.password.length < 6) {
-      this.message.add({ severity: 'warn', summary: 'Validasyon Hatası', detail: 'Şifreniz en az 6 karakter olmalıdır!' });
+      this.message.add({ severity: 'warn', summary: 'Validasyon Hatası', detail: 'Şifreniz en az altı karakter olmalıdır!' });
       return;
     }
 
-    this.http.post("https://localhost:7036/api/Auth/Login", this.request)
-      .subscribe({
-        next: res => {
-          localStorage.setItem("response", JSON.stringify(res));
-          this.router.navigateByUrl("/");
-        },
-        error: (err: HttpErrorResponse) => {
-          console.log(err);
-         
-          switch (err.status) {
-            case 400:
-              this.message.add({ severity: 'error', summary: 'Hata!', detail: err.error.message });
-              break;
-           
-              case 422:
-              for (let e of err.error) {
-                this.message.add({ severity: 'error', summary: "Validation Hatası!", detail: e });
-              }
-          }
-        }
-      })
+    this.http.post("Auth/Login", this.request, res=>{
+      localStorage.setItem("response", JSON.stringify(res));
+      this.router.navigateByUrl("/");
+    });
   }
 }

@@ -1,10 +1,12 @@
 ﻿using Azure.Core;
 using FluentValidation.Results;
 using ITDesk.SignInResultNameSpace;
+using ITDeskServer.Abstractions;
 using ITDeskServer.DTOs;
 using ITDeskServer.Models;
 using ITDeskServer.Services;
 using ITDeskServer.Validator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,14 +14,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Runtime.InteropServices;
 
 namespace ITDeskServer.Controllers;
-[Route("api/[controller]/[action]")]
-[ApiController]
+[AllowAnonymous]
 public class AuthController(
     UserManager<AppUser> userManager, 
     SignInManager<AppUser> signInManager,
-    JwtService jwtService) : ControllerBase
+    JwtService jwtService) : ApiController
 {
-   
     [HttpPost]
     public async Task<IActionResult> Login(LoginDto request, CancellationToken cancellationToken)
     {
@@ -65,5 +65,41 @@ public class AuthController(
         return Ok(new {AccessToken= token });
     }
 
-    
+    [HttpPost]
+    public async Task<IActionResult> GoogleLogin(GoogleLoginDto request, CancellationToken cancellationToken)
+    {
+        AppUser? appUser = await userManager.FindByEmailAsync(request.Email);
+        if(appUser is not null)
+        {
+            string token = jwtService.CreateToken(appUser, true);
+            return Ok(new { AccessToken = token });
+        }
+
+        string userName = request.Email;
+
+            appUser=new()
+            {
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.FirstName.ToLower(),
+                GoogleProvideId = request.Id
+            };
+
+       IdentityResult result =await userManager.CreateAsync(appUser);
+        if(result.Succeeded)
+        {
+            string token = jwtService.CreateToken(appUser, true);
+            return Ok(new { AccessToken = token });
+        }
+
+        IdentityError? errorResult = result.Errors.FirstOrDefault();
+
+        string errorMessage =
+            errorResult is null ? 
+            "Giriş esnasında bir hatayla karşılaştık lütfen yöneticinize danışın!" :
+            errorResult.Description; 
+        
+        return BadRequest(new { Message = errorMessage });
+    }
 }

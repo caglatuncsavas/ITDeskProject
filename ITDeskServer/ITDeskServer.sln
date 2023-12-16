@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITDeskServer", "ITDeskServer.csproj", "{3DDA3927-6967-40FD-9F2D-54E052A566DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITDesk.SignInResult", "..\ITDesk.SignInResult\ITDesk.SignInResult.csproj", "{E841598A-7C48-451D-A889-621C6112D56B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITDesk.SignInResult", "..\ITDesk.SignInResult\ITDesk.SignInResult.csproj", "{E841598A-7C48-451D-A889-621C6112D56B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
