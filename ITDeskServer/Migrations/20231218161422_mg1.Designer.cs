@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITDeskServer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231215185743_mg1")]
+    [Migration("20231218161422_mg1")]
     partial class mg1
     {
         /// <inheritdoc />

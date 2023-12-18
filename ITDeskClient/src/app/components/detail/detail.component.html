@@ -1,0 +1,56 @@
+
+    <div class="container p-0">
+
+        <h1 class="h3 mb-3">Messages</h1>
+
+        <div class="card">
+            <div class="row g-0">
+                <div class="col-12 col-lg-12 col-xl-12">
+                    <div class="py-2 px-4 border-bottom d-none d-lg-block">
+                        <div class="d-flex align-items-center py-1">
+                            <div class="position-relative">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                    class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                            </div>
+                            <div class="flex-grow-1 pl-3 ms-2">
+                                <strong>Sharon Lessman</strong>
+                                <div class="text-muted small"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="position-relative">
+                        <div class="chat-messages p-4">
+                            @for(detail of details; track detail){
+                            <div class=" pb-4" [ngClass]="auth.token.userId === detail?.appUserId? 'chat-message-right': 'chat-message-left'">
+                                <div class="ms-2 me-2">
+                                    <img src="https://files.oaiusercontent.com/file-jY7qls1IPsSCdlvt2UEG61VD?se=2023-12-18T15%3A50%3A20Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D69eafe04-5ab9-4296-a494-2a8cf5fc3f74.webp&sig=Hvah/IjaNl2ZQ7xFfCfPsa6pReOWpsuSDedriyY6zRU%3D" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                    <div class="text-muted small text-nowrap mt-2">
+                                        
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                    <div class="font-weight-bold mb-1">
+                                        {{detail.appUser.firstName}} {{detail.appUser.lastName}}
+                                    </div>
+                                    {{detail.content}}
+                                    <p>{{detail.createdDate | date: 'dd/MM/yyyy hh:mm:ss'}}</p>
+                                </div>
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="flex-grow-0 py-3 px-4 border-top">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Type your message">
+                            <button class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

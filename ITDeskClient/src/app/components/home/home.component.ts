@@ -13,6 +13,8 @@ import { HttpService } from 'src/app/services/http.service';
 import { AgGridModule } from 'ag-grid-angular';
 import { BadgeModule } from 'primeng/badge';
 import { InputTextModule } from 'primeng/inputtext';
+import { Router } from '@angular/router';
+import { ButtonRendererComponent } from 'src/app/common/components/button-renderer/button-renderer.component';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +25,8 @@ import { InputTextModule } from 'primeng/inputtext';
   styleUrls: ['./home.component.css']
 })
 export default class HomeComponent implements OnInit {
-
+  
+  frameworkComponents: any;
   tickets: TicketModel[] = [];
   ref: DynamicDialogRef | undefined;
   selectedSubject!: any;
@@ -40,7 +43,16 @@ export default class HomeComponent implements OnInit {
   }
 
   colDefs: any[] = [
-    { headerName: "#", valueGetter: (params: any) => params.node.rowIndex + 1, width: 30, filter: false },
+    {
+      headerName: "Detay", 
+      width: '40px',
+      filter: false,
+      cellRenderer: "buttonRenderer",
+      cellRendererParams: {
+          onClick: this.gotoDetail.bind(this),
+          label: 'Goto Detail'
+      }
+  },
     {
       field: "subject",
       cellRenderer: (params: any) => {
@@ -68,10 +80,21 @@ export default class HomeComponent implements OnInit {
   constructor(
     public dialogService: DialogService,
     public messageService: MessageService,
-    private http: HttpService) { }
+    private http: HttpService,
+    private router:Router) {
+      this.frameworkComponents = {
+        buttonRenderer: ButtonRendererComponent
+    };
+     }
 
   ngOnInit(): void {
     this.getAll();
+  }
+
+  gotoDetail(event:any){
+    const id= event.rowData.id;
+    this.router.navigateByUrl("/ticket-details/"+ id)
+
   }
 
   getAll() {
@@ -82,7 +105,7 @@ export default class HomeComponent implements OnInit {
         ticket.id = r.id;
         ticket.subject = r.subject;
         ticket.isOpen = r.isOpen;
-        ticket.createdDate = new Date(r.createdDate);
+        ticket.createdDate = r.createdDate;
         this.tickets.push(ticket);
       }
     })

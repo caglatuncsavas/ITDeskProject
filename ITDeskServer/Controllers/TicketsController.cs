@@ -79,6 +79,17 @@ public class TicketsController : ApiController
         return NoContent();
     }
 
+    [HttpGet("{ticketId}")]
+    public IActionResult GetDetails(Guid ticketId)  //api/tickets/GetDetails?ticketId=...
+    {
+        var details =
+            _context.TicketDetails
+            .Where(p => p.TicketId == ticketId)
+            .Include(p => p.AppUser)
+            .OrderBy(p => p.CreatedDate).ToList();
+        return Ok(details);
+    }
+
     [HttpGet]
     [EnableQuery]
     public IActionResult GetAll()
