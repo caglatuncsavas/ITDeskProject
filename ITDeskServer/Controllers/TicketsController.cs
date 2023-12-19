@@ -30,6 +30,11 @@ public class TicketsController : ApiController
             return BadRequest(new { Message = "Kullanıcı bulunamadı!" });
         }
 
+        AppUser? appUser= _context.Users.Where(p=>p.Id == Guid.Parse(userId)).FirstOrDefault();
+        if (appUser is null)
+        {
+            return BadRequest(new { Message = "Kullanıcı bulunamadı!" });
+        }
      
         Ticket ticket = new()
         {
@@ -72,8 +77,8 @@ public class TicketsController : ApiController
           CreatedDate = ticket.CreatedDate
         };
 
-        _context.Add(ticket);
-        _context.Add(ticketDetail);
+        _context.Tickets.Add(ticket);
+        _context.TicketDetails.Add(ticketDetail);
         _context.SaveChanges();
 
         return NoContent();
@@ -91,28 +96,63 @@ public class TicketsController : ApiController
     }
 
     [HttpGet]
-    [EnableQuery]
-    public IActionResult GetAll()
+    public IActionResult GetById(Guid ticketId)
+    {
+        var details =
+            _context.Tickets
+            .Where(p => p.Id == ticketId)
+            .Include(p => p.AppUser)
+            .FirstOrDefault();  
+        return Ok(details);
+    }
+
+    [HttpPost]
+    public IActionResult AddDetailContent(TicketDetailDto request)
+    {
+        TicketDetail ticketDetail = new()
+        {
+            AppUserId = request.AppUserId,
+            Content = request.Content,
+            CreatedDate = DateTime.Now,
+            TicketId = request.TicketId,
+        };
+        _context.Add(ticketDetail);
+        _context.SaveChanges();
+
+        return NoContent();
+    }
+
+
+    [HttpPost]
+    public IActionResult GetAll(GetAllTicketDto request)
     {
         string? userId= HttpContext.User.Claims.Where(p=> p.Type =="UserId").Select(s=>s.Value).FirstOrDefault();
 
+        //Kullanıcı adminse tüm ticketları getir, değilse sadece kendi ticketlarını getir.
         if(userId is null)
         {
             return BadRequest(new { Message = "Kullanıcı bulunamadı!" });
         }
-
         IQueryable<TicketResponseDto> tickets =
-            _context.Tickets
-            .Where(p=> p.AppUserId == Guid.Parse(userId))
-            .Select(s=> new TicketResponseDto
-            {
-                Id= s.Id,
-                CreatedDate=s.CreatedDate.ToString("o"),
-                IsOpen=s.IsOpen,
-                Subject=s.Subject
-            })
-            .AsQueryable();
+           _context.Tickets
+           .Include(p => p.AppUser)
+           .Select(s => new TicketResponseDto
+           {
+               Id = s.Id,
+               AppUserId = s.AppUserId,
+               AppUser = s.AppUser,
+               UserName = s.AppUser!.UserName,
+               CreatedDate = s.CreatedDate.ToString("o"),
+               IsOpen = s.IsOpen,
+               Subject = s.Subject
+           })
+           .AsQueryable();
 
-        return Ok(tickets);
+        if (!request.Roles.Contains("Admin"))
+        {
+           tickets = tickets.Where(p => p.AppUserId == Guid.Parse(userId));
+        }
+       
+        return Ok(tickets.ToList());
     }   
 }

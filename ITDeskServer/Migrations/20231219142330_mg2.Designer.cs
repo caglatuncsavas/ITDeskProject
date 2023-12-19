@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITDeskServer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231218161422_mg1")]
-    partial class mg1
+    [Migration("20231219142330_mg2")]
+    partial class mg2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,6 +104,19 @@ namespace ITDeskServer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ITDeskServer.Models.AppUserRole", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("AppUserRoles");
                 });
 
             modelBuilder.Entity("ITDeskServer.Models.Ticket", b =>

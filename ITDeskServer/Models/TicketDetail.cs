@@ -4,7 +4,7 @@ public sealed class TicketDetail
 {
     public TicketDetail()
     {
-        Id = Guid.NewGuid();
+        Id = Guid.NewGuid(); //ıd kısmını otomatik olarak oluşturuyoruz.
     }
     public Guid Id { get; set; } 
     public Guid TicketId { get; set; } 

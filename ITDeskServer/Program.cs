@@ -111,8 +111,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 ExtensionsMiddleware.AutoMigration(app);
-
 ExtensionsMiddleware.CreateFirstUser(app);
+ExtensionsMiddleware.CreateRoles(app);
+ExtensionsMiddleware.CreateUserRoles(app);
 
 app.Run();
 #endregion

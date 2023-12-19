@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using ITDesk.SignInResultNameSpace;
 using ITDeskServer.Abstractions;
+using ITDeskServer.Context;
 using ITDeskServer.DTOs;
 using ITDeskServer.Models;
 using ITDeskServer.Services;
@@ -10,16 +11,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Runtime.InteropServices;
 
 namespace ITDeskServer.Controllers;
 [AllowAnonymous]
 public class AuthController(
+     AppDbContext context,
     UserManager<AppUser> userManager, 
     SignInManager<AppUser> signInManager,
     JwtService jwtService) : ApiController
 {
+ 
+
     [HttpPost]
     public async Task<IActionResult> Login(LoginDto request, CancellationToken cancellationToken)
     {
@@ -60,8 +65,14 @@ public class AuthController(
             return BadRequest(new { Message = "Şifreniz yanlış!" });
         }
 
-        string token = jwtService.CreateToken(appUser, request.RememberMe);
+        var roles = 
+            context.AppUserRoles
+            .Where(p => p.UserId == appUser.Id)
+            .Include(p => p.Role)
+            .Select(s => s.Role!.Name)
+            .ToList();
 
+        string token = jwtService.CreateToken(appUser, roles, request.RememberMe);
         return Ok(new {AccessToken= token });
     }
 
@@ -71,7 +82,14 @@ public class AuthController(
         AppUser? appUser = await userManager.FindByEmailAsync(request.Email);
         if(appUser is not null)
         {
-            string token = jwtService.CreateToken(appUser, true);
+            var roles =
+          context.AppUserRoles
+          .Where(p => p.UserId == appUser.Id)
+          .Include(p => p.Role)
+          .Select(s => s.Role!.Name)
+          .ToList();
+
+            string token = jwtService.CreateToken(appUser, roles ,true);
             return Ok(new { AccessToken = token });
         }
 
@@ -89,7 +107,7 @@ public class AuthController(
        IdentityResult result =await userManager.CreateAsync(appUser);
         if(result.Succeeded)
         {
-            string token = jwtService.CreateToken(appUser, true);
+            string token = jwtService.CreateToken(appUser, new() ,true);
             return Ok(new { AccessToken = token });
         }
 

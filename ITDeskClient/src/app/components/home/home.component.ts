@@ -15,6 +15,7 @@ import { BadgeModule } from 'primeng/badge';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
 import { ButtonRendererComponent } from 'src/app/common/components/button-renderer/button-renderer.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ export default class HomeComponent implements OnInit {
   tickets: TicketModel[] = [];
   ref: DynamicDialogRef | undefined;
   selectedSubject!: any;
+  isAdmin:boolean=false;
 
   defaultColDef: any = {
     filter: true,
@@ -52,6 +54,11 @@ export default class HomeComponent implements OnInit {
           onClick: this.gotoDetail.bind(this),
           label: 'Goto Detail'
       }
+  },
+  {
+    field:"userName",
+    hide:!this.isAdmin 
+
   },
     {
       field: "subject",
@@ -81,10 +88,11 @@ export default class HomeComponent implements OnInit {
     public dialogService: DialogService,
     public messageService: MessageService,
     private http: HttpService,
-    private router:Router) {
+    private router:Router,
+    private auth:AuthService) {
       this.frameworkComponents = {
         buttonRenderer: ButtonRendererComponent
-    };
+    }
      }
 
   ngOnInit(): void {
@@ -98,13 +106,17 @@ export default class HomeComponent implements OnInit {
   }
 
   getAll() {
-    this.http.get("Tickets/GetAll", (res) => {
+    const data ={
+      roles:this.auth.token.roles
+    }
+    this.http.post("Tickets/GetAll",data, (res) => {
       this.tickets = [];
       for (let r of res) {
         const ticket: TicketModel = new TicketModel();
         ticket.id = r.id;
         ticket.subject = r.subject;
         ticket.isOpen = r.isOpen;
+        ticket.userName = r.userName;
         ticket.createdDate = r.createdDate;
         this.tickets.push(ticket);
       }
