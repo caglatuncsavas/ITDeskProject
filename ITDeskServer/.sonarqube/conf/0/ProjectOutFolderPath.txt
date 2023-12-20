@@ -1,0 +1,1 @@
+C:\ITDeskProject\ITDeskServer\.sonarqube\out\0

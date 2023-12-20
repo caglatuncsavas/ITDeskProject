@@ -1,0 +1,1 @@
+﻿C:\ITDeskProject\ITDesk.SignInResult\CheckResultService.cs

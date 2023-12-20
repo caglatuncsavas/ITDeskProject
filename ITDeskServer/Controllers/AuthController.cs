@@ -52,7 +52,10 @@ public class AuthController(
         {
             TimeSpan? timeSpan = appUser.LockoutEnd - DateTime.UtcNow;
             if(timeSpan is not null)
-            return BadRequest(new { Message = $"Kullanıcınız 3 kere yanlış şifre girişinden dolayı {Math.Ceiling(timeSpan.Value.TotalMinutes)} dakika kitlendi!" });
+            {
+                return BadRequest(new { Message = $"Kullanıcınız 3 kere yanlış şifre girişinden dolayı {Math.Ceiling(timeSpan.Value.TotalMinutes)} dakika kitlendi!" });
+            }
+            
         }
 
         if (result.IsNotAllowed)
@@ -100,7 +103,7 @@ public class AuthController(
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                UserName = request.FirstName.ToLower(),
+                UserName = userName,
                 GoogleProvideId = request.Id
             };
 

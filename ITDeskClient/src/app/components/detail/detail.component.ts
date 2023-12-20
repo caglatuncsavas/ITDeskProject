@@ -55,6 +55,13 @@ getTicket(){
     this.http.post(`Tickets/AddDetailContent`, data, () => {
       this.content = "";//inputu temizle
       this.getDetail();
+      this.getTicket(); //ticketın durumunu güncellemek için
     })
   }
+
+  closeTicket(){
+    this. http.get(`Tickets/CloseTicketByTicketId?ticketId=${this.ticket.id}`,()=>{
+      this.getTicket();
+  })
+}
 }
