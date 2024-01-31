@@ -46,7 +46,7 @@ export default class HomeComponent implements OnInit {
 
   colDefs: any[] = [
     {
-      headerName: "Detay", 
+      headerName: "Detail", 
       width: '40px',
       filter: false,
       cellRenderer: "buttonRenderer",
@@ -76,9 +76,9 @@ export default class HomeComponent implements OnInit {
       field: "isOpen",
       cellRenderer: (params: any) => {
         if (params.value) {
-          return '<span class="p-badge p-component p-badge-lg p-badge-success">Açık</span>'
+          return '<span class="p-badge p-component p-badge-lg p-badge-success">Open</span>'
         } else {
-          return '<span class="p-badge p-component p-badge-lg p-badge-danger">Kapalı</span>'
+          return '<span class="p-badge p-component p-badge-lg p-badge-danger">Closed</span>'
         }
       }
     }
@@ -126,7 +126,7 @@ export default class HomeComponent implements OnInit {
 
   show() {
     this.ref = this.dialogService.open(CreateComponent, {
-      header: 'Yeni Destek Oluştur',
+      header: 'Create Support Request',
       width: '30%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
@@ -139,7 +139,7 @@ export default class HomeComponent implements OnInit {
       if (data) {
         this.http.post("Tickets/Add", data, (res) => {
           this.getAll();
-          this.messageService.add({ severity: 'success', summary: 'Başarılı', detail: 'Destek kaydı oluşturuldu' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Support ticket created' });
         })
       }
     });

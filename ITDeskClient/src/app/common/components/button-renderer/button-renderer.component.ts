@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <span style="cursor: pointer;" class="p-badge p-component p-badge-lg p-badge-success" (click)="onClick($event)" >
-        Detay
+        Detail
     </span>
     `
 })

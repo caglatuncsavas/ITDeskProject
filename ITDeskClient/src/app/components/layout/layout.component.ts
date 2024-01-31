@@ -25,7 +25,7 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        label: 'Ana Sayfa',
+        label: 'Home Page',
         icon: 'pi pi-fw pi-home',
         routerLink: "/"
       }

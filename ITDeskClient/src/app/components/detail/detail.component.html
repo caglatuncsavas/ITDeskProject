@@ -2,11 +2,10 @@
 
     <h1 class="h3 mb-3">Messages</h1>
     @if(ticket.isOpen){
-        <button class="btn btn-danger" (click)="closeTicket()" >Close Ticket</button>
+    <button class="btn btn-danger" (click)="closeTicket()">Close Ticket</button>
     }@else {
-        <h3 class="text-danger">Ticket is closed!</h3>
+    <h3 class="text-danger">Ticket is closed!</h3>
     }
-  
 
     <div class="card mt-2">
         <div class="row g-0">
@@ -22,33 +21,65 @@
                         <b>
                             Created Date: {{ticket.createdDate | date: 'dd/MM/yyyy hh:mm:ss'}}
                         </b>
-
                     </div>
                 </div>
                 <div class="py-2 px-4 border-bottom d-none d-lg-block">
-                        <ul class="d-flex py-1" style="gap: 20px; list-style: none;">
-                            @for(file of ticket.fileUrls; track file){
-                                <li>  
-                                <a [href]="'/assets/files/'+file.fileUrl" target="_blank">                                
-                                    <img [src]="'/assets/files/' + file.fileUrl" width="100" alt="">
-                                </a>  
-                                </li>
-                            }@empty {
-                                <li>No file</li>
-                            }
-                            
-                        </ul>   
+                    <ul class="d-flex py-1" style="gap: 20px; list-style: none;">
+                        @for(file of ticket.fileUrls; track file){
+                        <li>
+                            <a [href]="'/assets/files/'+file.fileUrl" target="_blank">
+                                <img [src]="'/assets/files/' + file.fileUrl" width="100" alt="">
+                            </a>
+                        </li>
+                        }@empty {
+                        <li>No file</li>
+                        }
+
+                    </ul>
                 </div>
                 <div class="position-relative">
+                    <div class="chat-messages p-4">
+                        <div *ngFor="let detail of details; let i = index" class="pb-4"
+                             [ngClass]="{'chat-message-right': auth.token.userId === detail?.appUserId, 'chat-message-left': auth.token.userId !== detail?.appUserId}">
+                            <div class="ms-2 me-2">
+                                <img *ngIf="auth.token.userId === detail?.appUserId"
+                                     src="https://www.shutterstock.com/image-vector/person-gray-photo-placeholder-woman-600nw-1241538838.jpg"
+                                     class="rounded-circle mr-1" alt="AppUser" width="40" height="40">
+                                <img *ngIf="auth.token.userId !== detail?.appUserId"
+                                     src="https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
+                                     class="rounded-circle mr-1" alt="Admin" width="40" height="40">
+                                <div class="text-muted small text-nowrap mt-2">
+                                </div>
+                            </div>
+                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3" style="width: 50%;">
+                                <div class="font-weight-bold mb-1">
+                                    {{ detail.appUser.firstName }} {{ detail.appUser.lastName }}
+                                </div>
+                                <p>
+                                    {{ detail.createdDate | date: 'dd/MM/yyyy hh:mm:ss' }}
+                                </p>
+                                <p style="word-break: break-all; width:50%">
+                                    {{ detail.content }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <div class="position-relative">
                     <div class="chat-messages p-4">
                         @for(detail of details; track detail){
                         <div class=" pb-4"
                             [ngClass]="auth.token.userId === detail?.appUserId? 'chat-message-right': 'chat-message-left'">
                             <div class="ms-2 me-2">
-                                <img src="https://files.oaiusercontent.com/file-jY7qls1IPsSCdlvt2UEG61VD?se=2023-12-18T15%3A50%3A20Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D69eafe04-5ab9-4296-a494-2a8cf5fc3f74.webp&sig=Hvah/IjaNl2ZQ7xFfCfPsa6pReOWpsuSDedriyY6zRU%3D"
-                                    class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-                                <div class="text-muted small text-nowrap mt-2">
 
+                                <img src="https://www.shutterstock.com/image-vector/person-gray-photo-placeholder-woman-600nw-1241538838.jpg" class="rounded-circle mr-1"
+                                    alt="AppUser" width="40" height="40">
+
+                                <img src="https://www.shutterstock.com/image-vector/profile-anonymous-face-icon-gray-260nw-789318310.jpg" class="rounded-circle mr-1"
+                                    alt="Admin" width="40" height="40">
+
+                                <div class="text-muted small text-nowrap mt-2">
                                 </div>
                             </div>
                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3" style="width: 50%;">
@@ -69,7 +100,7 @@
                         }
 
                     </div>
-                </div>
+                </div> -->
 
                 <div class="flex-grow-0 py-3 px-4 border-top">
                     <div class="input-group">

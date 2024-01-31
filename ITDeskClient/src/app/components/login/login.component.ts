@@ -33,7 +33,7 @@ import { HttpService } from 'src/app/services/http.service';
     CheckboxModule,
     GoogleSigninButtonModule
   ],
-  templateUrl: './login.component.html',
+   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export default class LoginComponent implements OnInit {

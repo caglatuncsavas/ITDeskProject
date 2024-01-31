@@ -52,3 +52,8 @@ body {
 .border-top {
     border-top: 1px solid #dee2e6!important;
 }
+.flex-shrink-1 {
+    flex-shrink: 0;
+    flex-grow: 1; /* Mesaj alanının genişlemesini sağlar */
+    min-width: 0; /* Gerekirse içeriğin alan içinde daraltılmasını sağlar */
+}

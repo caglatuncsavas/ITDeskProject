@@ -39,11 +39,11 @@ export class CreateComponent {
   create() {
     // Validation Check
     if (this.subject === "") {
-      this.messageService.add({ severity: 'error', summary: 'Konu Giriniz', detail: '' });
+      this.messageService.add({ severity: 'error', summary: 'Write Subject', detail: '' });
       return;
     }
     if(this.summary === ""){
-      this.messageService.add({ severity: 'error', summary: 'Özet Giriniz', detail: '' });
+      this.messageService.add({ severity: 'error', summary: 'Write Summary', detail: '' });
       return;
     }
 

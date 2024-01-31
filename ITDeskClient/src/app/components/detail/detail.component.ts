@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,11 +15,12 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export default class DetailComponent {
+export default class DetailComponent{
   details: TicketDetailModel[] = [];
   content: string = "";
   ticketId: string = "";
   ticket:TicketModel = new TicketModel();
+
 
   constructor(
     public auth: AuthService,
@@ -31,8 +32,9 @@ export default class DetailComponent {
       this.getDetail();
       this.getTicket();
     });
+    
   }
-
+  
 getTicket(){
   this.http.get(`Tickets/GetById?ticketId=${this.ticketId}`, (res) => {
     this.ticket = res;
