@@ -6,7 +6,6 @@ They can also attach files to their tickets and communicate with admins via the 
 ## Frontend
 
 ### Technologies Used:
-- .NET 8
 - Angular 17
 - PrimeNG library
 - ag-grid-angular library
